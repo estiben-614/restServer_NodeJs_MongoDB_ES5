@@ -79,9 +79,14 @@ exports.userDelete=async (req=request,res=response)=>{
     
     //Encuentra al usuario por su ID y le cambia el estado a false 
     const usuarioEliminado= await Usuario.findByIdAndUpdate(id,{estado:false})
+
+    //Trae la info del usuario que se autentico
+    const usuarioAutenticado=req.usuario
+
     res.json({
         msg:'Hello from DELETE controller',
-        usuarioEliminado
+        usuarioEliminado,
+        usuarioAutenticado
     })
 }
 
