@@ -18,6 +18,13 @@ const login =async (req=request,res=response)=>{
             })
         }
 
+        //Verificar si el usuario está activo
+        if(usuario.estado=="false"){
+            return res.status(400).json({
+                msg:'Usuario/password incorrecto - usuario inactivo'
+            })
+        }
+
         //Verificar contraseña --Compara la contraseña del post con el guardado en la DB
 
         const validarPassword= await bcrypt.compareSync(password,usuario.password) 
