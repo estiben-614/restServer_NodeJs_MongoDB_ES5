@@ -2,6 +2,7 @@ const express=require("express")
 const dotenv=require("dotenv")
 const { router } = require("../routes/usersRoutes.js")
 const conectionDB = require("../database/config.js")
+const { routerAuth } = require("../routes/auth.js")
 dotenv.config()
 
 
@@ -9,7 +10,9 @@ class Server {
     constructor(){
         this.app=express()
         this.port=process.env.PORT
+
         this.usersPath='/api/test'
+        this.userAuth='/api/auth'
         this.middleware()
         this.routes()
         this.conectarDB()
@@ -25,6 +28,7 @@ class Server {
     }
     routes(){
         //Aqui podemos colocar todas nuestras rutas
+        this.app.use(this.userAuth,routerAuth)
         this.app.use(this.usersPath,router)
     }
 

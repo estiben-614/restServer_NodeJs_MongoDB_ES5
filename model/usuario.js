@@ -34,8 +34,9 @@ const UsuarioSchema= new Schema({
     }
 })
 //No mostrar algunos datos ingresados (password,__v) y unificar los demas en una sola propiedad (usuario)
-UsuarioSchema.methods.toJSON=function(){
-    const {password,__v,...usuario}=this.toObject()
+UsuarioSchema.methods.toJSON= function(){
+    const {__v,password,_id, ...usuario}=this.toObject()
+    usuario.uid=_id
     return usuario
 }
 //Recibe el nombre del modelo y un esquema con la data 
@@ -45,7 +46,8 @@ const Usuario=model('Usuario',UsuarioSchema)
 //llamado usuario
 
 UsuarioSchema.methods.toJSON= function(){
-    const {_id,__v,password, ...usuario}=this.toObject()
+    const {__v,password,_id, ...usuario}=this.toObject()
+    usuario.uid=_id
     return usuario
 }
 
