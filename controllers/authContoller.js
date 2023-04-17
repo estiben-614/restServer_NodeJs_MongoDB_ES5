@@ -66,7 +66,7 @@ const login =async (req=request,res=response)=>{
     const {nombre,correo,imagen}=await googleVerify(id_token)
 
     //Verificamos si en DB hay un usuario con ese correo, si lo hay, trae su info
-    const usuario= await Usuario.findOne({correo})
+    let usuario= await Usuario.findOne({correo})
 
     //Si no existe
     
@@ -81,7 +81,7 @@ const login =async (req=request,res=response)=>{
             password:'f'
         }
             
-            const usuario=new Usuario(data)
+            usuario=new Usuario(data)
             //lo guardamos
             await usuario.save()
             console.log(`Usuario ${usuario.nombre} creado`)
