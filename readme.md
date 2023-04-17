@@ -15,7 +15,6 @@ Para crear un usuario,  use una petición POST a la dirección ```http://localho
                                                                               "password":"123456",
                                                                               "role":"ADMIN_ROLE"}```
 
-
  
 Para crear un usuario con su información inicie sesión con su cuenta de Google desde ```http://localhost:8080```
 
@@ -30,3 +29,7 @@ Para hacer un login ingresar a ```http://localhost:8080/api/auth/login``` y real
 Para modificar y eliminar un usuario a partir de su ID, use  las peticiones PUT y DELETE ingresando el  parametro del ID  ```http://localhost:8080/<'type-userID-here>```.Adicional, para eliminar un usuario a partir de su ID primero debe autenticar un usuario (No el que se va a eliminar) y obtenga su JWS, luego realice la solicitud DELETE y agregue un header con el JWT  de la siguiente manera ``` x-token : < JWS_USER> ```. Una vez hecho lo anterior, el estado del usuario pasará de ```true``` a ```false``` indicando que fue eliminado
 
 Para tener en cuenta, solo los usuarios con ```Role: ADMIN_ROLE,VENTAS_ROLE``` pueden realizar solicitudes DELETE
+
+Documentación Postman : https://documenter.getpostman.com/view/26573688/2s93Xzw2Sb#e02cc01e-e2b3-4a97-8b33-5e3bcb6f99e5
+
+
