@@ -3,6 +3,7 @@ const { Usuario } = require('../model/usuario.js')
 const {response, request}=express
 const bcrypt=require('bcrypt')
 const { generarToken } = require('../helpers/generarJWT.js')
+const { googleVerify } = require('../helpers/google-verify.js')
 
 
 const login =async (req=request,res=response)=>{
@@ -56,6 +57,53 @@ const login =async (req=request,res=response)=>{
         
 }
 
+//GoogleSignIn y la info del token
+ const googleSigIn=async(req=request,res=response)=>{
+    
+    const {id_token}=req.body
+
+    //Traemos la info el token
+    const {nombre,correo,imagen}=await googleVerify(id_token)
+
+    //Verificamos si en DB hay un usuario con ese correo, si lo hay, trae su info
+    const usuario= await Usuario.findOne({correo})
+
+    //Si no existe
+    
+    if(!usuario){
+        //Lo creamos
+        data={
+            nombre,
+            correo,
+            imagen,
+            role:'USER_ROLE',
+            google:true,
+            password:'f'
+        }
+            
+            const usuario=new Usuario(data)
+            //lo guardamos
+            await usuario.save()
+            console.log(`Usuario ${usuario.nombre} creado`)
+    }
+    //Si existe, revisemos si se encuentra activo
+     if(usuario.estado=="false"){
+         return res.status(401).json({
+         msg:'Usuario bloqueado, contactese con el ADMIN'
+        })
+        }
+    //Generar Token JWT
+    const token= await generarToken(usuario.id)
+
+    res.json({
+        usuario,
+        token
+    })
+ }
+
+ 
+
 module.exports={
-    login
+    login,
+    googleSigIn
 }

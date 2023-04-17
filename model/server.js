@@ -11,7 +11,7 @@ class Server {
         this.app=express()
         this.port=process.env.PORT
 
-        this.usersPath='/api/test'
+        this.usersPath='/api/usuarios'
         this.userAuth='/api/auth'
         this.middleware()
         this.routes()
