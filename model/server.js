@@ -6,8 +6,9 @@ const { routerAuth } = require("../routes/auth.js")
 const {routerCategorias } = require("../routes/categorias.js")
 const { routerProductos } = require("../routes/productos.js")
 const { routerBuscar } = require("../routes/buscar.js")
+const { routherUploads } = require("../routes/uploads.js")
+const fileUpload = require("express-fileupload")
 dotenv.config()
-
 
 class Server {
     constructor(){
@@ -19,7 +20,8 @@ class Server {
             auth:'/api/auth',
             categorias:'/api/categorias',
             productos:'/api/productos',
-            buscar:'/api/buscar'
+            buscar:'/api/buscar',
+            uploads:'/api/uploads'
         }
         this.middleware()
         this.routes()
@@ -33,6 +35,12 @@ class Server {
         this.app.use(express.static('public'))
         //Para que me lea y reciba peticiones JSON
         this.app.use(express.json())
+
+        //Para subir archivos 
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/'
+        }));
     }
     routes(){
         //Aqui podemos colocar todas nuestras rutas
@@ -41,6 +49,7 @@ class Server {
         this.app.use(this.paths.categorias,routerCategorias)
         this.app.use(this.paths.productos,routerProductos)
         this.app.use(this.paths.buscar,routerBuscar)
+        this.app.use(this.paths.uploads,routherUploads)
 
     }
 
