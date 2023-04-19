@@ -20,7 +20,7 @@ const validarJWT=async (req=request,res=response,next)=>{
 
         //Verificamos que el token exista en DB y extraemos su uid. Sin destructurar, obtenemos lo mismo, mas fecha de creación y expiracion
         const {uid}= await verify(token,process.env.SECRETORPRIVATEKEY)
-        console.log(uid)
+        //console.log(uid)
 
         //Con el uid buscamos el usuario al que corresponse
         const usuario= await Usuario.findById(uid)
@@ -41,7 +41,7 @@ const validarJWT=async (req=request,res=response,next)=>{
 
         }
 
-        //Guardamos la info del usuario autenticado en la request
+        //Creamos una propiedad usuario en la request que contiene toda la data del usuario atenticado 
 
         req.usuario=usuario
         next()
