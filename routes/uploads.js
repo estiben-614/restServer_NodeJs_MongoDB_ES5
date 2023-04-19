@@ -1,10 +1,10 @@
 const express=require('express')
-const { subirArchivos } = require('../controllers/upload.controllers.js')
+const { cargarArchivos } = require('../controllers/upload.controllers.js')
 
 const routherUploads=express.Router()
 
 
-routherUploads.post('/',subirArchivos)
+routherUploads.post('/',cargarArchivos)
 
 module.exports={
     routherUploads
