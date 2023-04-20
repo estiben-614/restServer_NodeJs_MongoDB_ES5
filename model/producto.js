@@ -27,7 +27,8 @@ const ProductoSchema=Schema({
         require:true
     },
     descripción:{ type:String},
-    disponible:{type:Boolean,default:true}
+    disponible:{type:Boolean,default:true},
+    img:{type:String}
 })
 
 //Busca/crea la colección producto ---> Pasa de Producto al plural "productos"

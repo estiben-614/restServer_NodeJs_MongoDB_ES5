@@ -45,11 +45,23 @@ const existeProductoPorId=async(id)=>{
       throw new Error( `El id ${id} no existe`)
     }
   }
+
+//validar que sea una colección valida
+
+const coleccionValida=(coleccion='',coleccionesValidas=[])=>{
+  const existe=coleccionesValidas.includes(coleccion)
+  if(!coleccionesValidas){
+    throw new Error(`La colección ${coleccion} no es válida, ${coleccionesValidas}`)
+  }
+
+  return true
+}
  module.exports={
     validacionRole,
     validacionEmail,
     validacionID,
     existeCategoriaPorId,
-    existeProductoPorId
+    existeProductoPorId,
+    coleccionValida
     
  }
